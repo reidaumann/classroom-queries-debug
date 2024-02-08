@@ -7,7 +7,7 @@ class DepartmentsController < ApplicationController
 
   def show
     the_id = params.fetch("path_id")
-    @department = Department.where({:id => the_id })
+    @department = Department.where({:id => the_id }).at(0)
 
     render({ :template => "departments/show" })
   end
@@ -32,7 +32,7 @@ class DepartmentsController < ApplicationController
 
     if @department.valid?
       @department.save
-      redirect_to("/departments/#{@department.id}", { :notice => "Department updated successfully."} )
+      redirect_to("/departments/#{@department.id}", { :alert => "Department updated successfully."} )
     else
       redirect_to("/departments/#{@department.id}", { :alert => "Department failed to update successfully." })
     end
